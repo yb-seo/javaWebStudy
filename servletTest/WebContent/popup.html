@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script>
+	function setNotShowPop(obj) {
+		if (obj.checked == true) {
+			var expireDate = new Date();
+			expireDate.setMonth(expireDate.getMonth() + 1);
+			document.cookie = "notShowPop=" + "true" + ";path=/; expires=" + expireDate.toGMTString();
+			window.close();
+		}	
+	}
+	</script>
+</head>
+<body>
+	팝업창입니다.<br><br><br><br>
+	
+	<input type="checkbox" onClick="setNotShowPop(this)">오늘 더 이상 팝업창 띄우지 않기
+</body>
+</html>
