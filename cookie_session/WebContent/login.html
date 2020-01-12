@@ -5,7 +5,17 @@
 <title>로그인</title>
 </head>
 <body>
+	<h3>LoginServlet</h3>
 	<form name="frmLogin" method="post" action="login" encType="utf-8">
+		아이디 : <input type="text" name="user_id"><br>
+		비밀번호 : <input type="password" name="user_pw"><br>
+		<input type="submit" value="로그인">
+	</form>
+	
+	<br>
+	
+	<h3>LoginServlet2 - encodeURL()</h3>
+	<form name="frmLogin2" method="post" action="login2" encType="utf-8">
 		아이디 : <input type="text" name="user_id"><br>
 		비밀번호 : <input type="password" name="user_pw"><br>
 		<input type="submit" value="로그인">
