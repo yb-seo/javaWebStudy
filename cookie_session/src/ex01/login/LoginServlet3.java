@@ -2,6 +2,8 @@ package ex01.login;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/login3")
+public class LoginServlet3 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
 	}
@@ -32,22 +34,16 @@ public class LoginServlet extends HttpServlet {
 		String user_id = request.getParameter("user_id");
 		String user_pw = request.getParameter("user_pw");
 		
+		LoginImpl loginUser = new LoginImpl(user_id, user_pw);
+		
 		if (session.isNew()) {
-			if (user_id != null) {
-				session.setAttribute("user_id", user_id);
-				out.println("<a href='login'>로그인 상태 확인</a>"); //다시 요청
-			} else {
-				out.print("<a href='login.html'>다시 로그인</a>");
-				session.invalidate();
-			}
-		} else {
-			user_id = (String) session.getAttribute("user_id");
-			if (user_id != null && user_id.length() != 0) {
-				out.print("안녕하세요 " + user_id + "님!!");
-			} else {
-				out.print("<a href='login.html'>다시 로그인</a>");
-				session.invalidate();
-			}
-		}
+			session.setAttribute("loginUser", loginUser);
+		} 
+		
+		out.println("<script type='text/javascript'>");
+		out.println("setTimeout('history.go(0);', 5000)");  //5초마다 서블릿에 재요청하여 현재 접속자수 새로고침
+		out.println("</script>");
+		out.println("아이디는 " + loginUser.user_id + "<br>");
+		out.println("총 접속자 수는 " + LoginImpl.total_user + "<br>");
 	}
 }
